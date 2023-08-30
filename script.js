@@ -44,6 +44,11 @@ if (ativo.trim() !== "") {
 }
 });
 
+// Função para cancelar compra
+function cancelarCompra() {
+    document.getElementById("telaCompra").style.display = "none"; // Esconde a tela de compra
+  }
+
 //mostrar a tela de venda de ativos quando clicar no botão vender
 document.getElementById("vender").addEventListener("click", function() {
 var ativo = document.getElementById("ativo").value;
@@ -90,6 +95,10 @@ if (ativo.trim() !== "") {
 }
 });
 
+// Função para cancelar venda
+function cancelarVenda() {
+    document.getElementById("telaVenda").style.display = "none"; // Esconde a tela de venda
+  }
 
 //mostrar resultado da pesquisa de ativos
 document.querySelector("[name='pesquisar']").addEventListener("click", function(event) {
