@@ -69,6 +69,7 @@ if (ativo.trim() !== "") {
             document.getElementById("resultadoPesquisa").style.display = "none"; // Esconde a tela de pesquisa
             document.getElementById("telaVenda").style.display = "block"; // Mostrar tela de venda
             document.getElementById("ativoVenda").value = ativo; // Preencher campo de ativo na tela de venda
+            
 
             // Consultar o banco de dados para obter o valor do ativo
             fetch("verificar_ativo.php", {
@@ -128,74 +129,10 @@ fetch("verificar_ativo.php", {
         document.getElementById("resultadoPesquisa").style.display = "block";
         document.getElementById("telaVenda").style.display = "none"; // Esconde a tela de venda
         document.getElementById("telaCompra").style.display = "none"; // Esconde a tela de compra   
+        
     } else {
         alert("Ativo não encontrado no banco de dados.");
     }
 })
 .catch(error => console.error("Erro na requisição: " + error));
 });
-
-// Atualizar o valor da ordem ao alterar a quantidade
-document.getElementById("quantidadeCompra").addEventListener("input", function() {
-    calcularValorOrdem('compra');
-  });
-  
-  document.getElementById("quantidadeVenda").addEventListener("input", function() {
-    calcularValorOrdem('venda');
-  });
-  
-  // Função para confirmar compra
-  function confirmarCompra() {
-    var ativo = document.getElementById("ativoCompra").value;
-    var quantidade = parseFloat(document.getElementById("quantidadeCompra").value);
-    var valorAtivo = parseFloat(document.getElementById("valorAtivoCompra").textContent);
-    var valorOrdem = parseFloat(document.getElementById("valorOrdemCompra").textContent);
-  
-    if (isNaN(quantidade) || quantidade <= 0) {
-      alert("Quantidade inválida. Preencha um valor válido.");
-      return;
-    }
-  
-    var dataAtual = new Date().toISOString().split('T')[0]; // Obter a data atual no formato YYYY-MM-DD
-  
-    // Enviar os dados para o backend
-    fetch("salvar_operacao.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ativo: ativo,
-        quantidade: quantidade,
-        valorAtivo: valorAtivo,
-        valorOrdem: valorOrdem,
-        data: dataAtual
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert("Operação de compra realizada com sucesso!");
-        document.getElementById("telaCompra").style.display = "none";
-        document.getElementById("resultadoPesquisa").style.display = "block";
-      } else {
-        alert("Erro ao realizar a operação de compra.");
-      }
-    })
-    .catch(error => console.error("Erro na requisição: " + error));
-  }
-
-// Calcular o valor da ordem de compra/venda
-function calcularValorOrdem(tipo) {
-var quantidadeElement = document.getElementById("quantidade" + tipo);
-var valorAtivoElement = document.getElementById("valorAtivo" + tipo);
-
-var quantidade = parseFloat(quantidadeElement.value); // Esta linha gera o erro
-var valorAtivo = parseFloat(valorAtivoElement.textContent);
-
-if (!isNaN(quantidade) && !isNaN(valorAtivo)) {
-    var valorOrdem = quantidade * valorAtivo;
-    var valorOrdemElement = document.getElementById("valorOrdem" + tipo);
-    valorOrdemElement.textContent = valorOrdem.toFixed(2);
-}
-}
