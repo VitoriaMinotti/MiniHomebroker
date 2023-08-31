@@ -56,15 +56,17 @@
 <div class="container mt-3" id="telaVenda" style="display: none;">
     <h2 style="color:red;">Venda de Ativo</h2>
     <form action="salvar_venda.php" method="post">
-    <input type="text" name="codigo_ativo" id="ativoVenda" placeholder="Ativo" disabled>
-    <label for="valorAtivoVenda">Valor do Ativo:</label>
-    <span id="valorAtivoVenda"></span>
-    <input type="number" id="quantidadeVenda" name="quantidade" placeholder="Quantidade" oninput="calcularValorOrdem('venda')">
-    <label for="valorOrdemVenda">Valor da Ordem:</label>
-    <span id="valorOrdemVenda" name="valorOrdem"></span>
-    <input type="hidden" name="tipo" value="2"> <!-- 2 para Venda -->
-    <button type="submit" class="btn btn-success">Confirmar</button>
-    <button class="btn btn-danger" onclick="cancelarVenda()">Cancelar</button>
+        <input type="text" name="ativoVenda" id="ativoVenda" placeholder="Ativo" readonly>
+        <label for="valorAtivoVenda">Valor do Ativo:</label>
+        <span id="valorAtivoVenda"></span>
+        <input type="number" id="quantidadeVenda" name="quantidade" placeholder="Quantidade" oninput="calcularValorOrdem('venda')">
+        <label for="valorOrdemVenda">Valor da Ordem:</label>
+        <span id="valorOrdemVenda" name="valorOrdemVenda"></span>
+        <input type="hidden" id="valorOrdemHidden" name="valorOrdemVenda"/>
+        <input type="hidden" name="tipo" value="2"> <!-- 2 para Venda -->
+        <button type="submit" class="btn btn-success">Confirmar</button>
+        </form>
+        <button class="btn btn-danger" onclick="cancelarVenda()">Cancelar</button>
     </form>
 </div>
 

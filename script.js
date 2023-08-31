@@ -46,17 +46,17 @@ if (ativo.trim() !== "") { //usa o trim para verificar os espaços em branco
 
 // Função para calcular o valor da ordem de compra quando o usuário digitar a quantidade de ativos
 function calcularValorOrdem(tipo) {
-    var valorAtivoElement = tipo === 'venda' ? document.getElementById("valorAtivoVenda") : document.getElementById("valorAtivoCompra");
-    var quantidadeElement = tipo === 'venda' ? document.getElementById("quantidadeVenda") : document.getElementById("quantidadeCompra");
-    var valorOrdemSpan = tipo === 'venda' ? document.getElementById("valorOrdemVenda") : document.getElementById("valorOrdem");
+    var valorAtivoElement = tipo === 'venda' ? document.getElementById("valorAtivoVenda") : document.getElementById("valorAtivoCompra"); // Verificar se é compra ou venda 
+    var quantidadeElement = tipo === 'venda' ? document.getElementById("quantidadeVenda") : document.getElementById("quantidadeCompra"); 
+    var valorOrdemSpan = tipo === 'venda' ? document.getElementById("valorOrdemVenda") : document.getElementById("valorOrdem"); 
     
-    var valorAtivo = parseFloat(valorAtivoElement.textContent);
+    var valorAtivo = parseFloat(valorAtivoElement.textContent); 
     var quantidade = parseFloat(quantidadeElement.value);
     
-    if (!isNaN(valorAtivo) && !isNaN(quantidade)) {
+    if (!isNaN(valorAtivo) && !isNaN(quantidade)) { 
         var valorOrdem = quantidade * valorAtivo;
         valorOrdemSpan.textContent = valorOrdem.toFixed(2);
-        document.getElementById('valorOrdemHidden').value = valorOrdem.toFixed(2); // Atualizar o campo oculto
+        document.getElementById('valorOrdemHidden').value = valorOrdem.toFixed(2); // Atualizar o campo oculto com o valor da ordem de compra ou venda 
     } else {
         valorOrdemSpan.textContent = "Insira valores numéricos válidos.";
         document.getElementById('valorOrdemHidden').value = ""; // Resetar o campo oculto se houver um erro

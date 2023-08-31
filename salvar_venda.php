@@ -1,22 +1,27 @@
 <?php
 include("conexao.php");
 
-// Recupera os dados do formulário
-$codigo_ativo = $_POST['codigo_ativo'];
+// Obtém os dados do formulário
+$codigo_ativo = $_POST['ativoVenda']; 
 $tipo = $_POST['tipo'];
 $quantidade = $_POST['quantidade'];
-$valor = $_POST['valorOrdem'];
+$valor = $_POST['valorOrdemVenda']; 
 $data = date('Y-m-d'); // Data atual
 
 // Prepara e executa a consulta SQL
-$stmt = $conexao->prepare("INSERT INTO Ordem (codigo_ativo, tipo, quantidade, valor, data) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("siids", $codigo_ativo, $tipo, $quantidade, $valor, $data);
+$query = "INSERT INTO ordem (codigo_ativo, tipo, quantidade, valor, data) 
+                     VALUES ('$codigo_ativo', '$tipo', '$quantidade', '$valor', '$data')";
+$result = $conexao->query($query);
 
-if ($stmt->execute()) {
-    $stmt->close();
+if ($result) {
     $conexao->close();
-
+    ?>
+    <script>
+    alert("Ordem enviada com sucesso");
+    window.location.href = "index.php";
+    </script>
+    <?php
 } else {
-    echo "Erro: " . $stmt->error;
+    echo "Erro: " . $conexao->error;
 }
 ?>
