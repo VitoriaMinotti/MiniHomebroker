@@ -56,11 +56,12 @@ function calcularValorOrdem(tipo) {
     if (!isNaN(valorAtivo) && !isNaN(quantidade)) {
         var valorOrdem = quantidade * valorAtivo;
         valorOrdemSpan.textContent = valorOrdem.toFixed(2);
+        document.getElementById('valorOrdemHidden').value = valorOrdem.toFixed(2); // Atualizar o campo oculto
     } else {
         valorOrdemSpan.textContent = "Insira valores numéricos válidos.";
+        document.getElementById('valorOrdemHidden').value = ""; // Resetar o campo oculto se houver um erro
     }
 }
-
 
 // Função para cancelar compra quando clicar no botão cancelar
 function cancelarCompra() {
