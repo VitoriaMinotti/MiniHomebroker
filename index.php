@@ -24,11 +24,11 @@
     <!-- tela de pesquisa, só aparece ao clicar no botão de pesquisar -->
     <div class="container" style="display: none;" id="resultadoPesquisa">
     <br>
-    <div class="form-group">
-        <label for="saldo">Saldo:</label>
-        <input type="text" class="form-control" id="saldo" readonly>
+    <div id="saldo">
+        <h4>Saldo</h4>
+        <span id="saldoValor"></span>
     </div>
-    <table class="table mt-3" id="tabelaOperacoes" >
+        <table class="table mt-3" id="tabelaOperacoes" >
         <thead>
             <tr>
                 <th>Operações</th>
@@ -60,6 +60,26 @@
                 <button type="submit" class="btn btn-success">Confirmar</button>
             </form>
                 <button type="button" class="btn btn-danger" onclick="cancelarCompra()">Cancelar</button>
+            </div>
+    </div>
+
+    <!-- tela de venda de ativo, só aparece ao clicar no botão de venda -->
+    <div class="container form mt-3" id="telaVenda" style="display: none;">
+        <h2 style="color:red;">Venda de Ativo</h2>
+        <form action="salvar_venda.php" method="post">
+            <input type="text" name="ativoVenda" id="ativoVenda" placeholder="Ativo" readonly>
+            <label for="valorAtivoVenda">Valor do Ativo:</label>
+            <span id="valorAtivoVenda"></span>
+            <input type="number" name="quantidade" id="quantidadeVenda" placeholder="Quantidade" oninput="calcularValorOrdem('venda')">
+            <label for="valorOrdem">Valor da Ordem:</label>
+            <span id="valorOrdem" name="valorOrdemVenda"></span>
+            <input type="hidden" id="valorOrdemHidden" name="valorOrdemVenda"/>
+            <input type="hidden" name="tipo" value="2"> <!-- 2 para Venda -->
+            <div class="container">
+                <br>
+                <button type="submit" class="btn btn-success">Confirmar</button>
+            </form>
+                <button type="button" class="btn btn-danger" onclick="cancelarVenda()">Cancelar</button>
             </div>
     </div>
 </div>
