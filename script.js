@@ -14,7 +14,7 @@ if (ativo.trim() !== "") { //usa o trim para verificar os espaços em branco
     .then(data => { //verifica se o ativo existe no banco de dados
         if (data.exists) { 
             // Se Ativo existe no banco de dados, exibir tela de compra
-            document.getElementById("telaVenda").style.display = "none"; // Esconder tela de venda
+            // document.getElementById("telaVenda").style.display = "none"; // Esconder tela de venda
             document.getElementById("resultadoPesquisa").style.display = "none"; // Esconde a tela de pesquisa
             document.getElementById("telaCompra").style.display = "block"; // Mostrar tela de compra
             document.getElementById("ativoCompra").value = ativo; // Preencher campo de ativo na tela de compra
@@ -65,58 +65,14 @@ function calcularValorOrdem(tipo) {
 
 // Função para cancelar compra quando clicar no botão cancelar
 function cancelarCompra() {
-    document.getElementById("telaCompra").style.display = "none"; // Esconde a tela de compra
-     // Apaga o número digitado no campo de quantidade
-     document.getElementById("quantidadeCompra").value = "";
-  }
-
-// Mostrar a tela de venda de ativos quando clicar no botão "Vender"
-document.getElementById("vender").addEventListener("click", function() {
-    var ativo = document.getElementById("ativo").value;
-
-    if (ativo.trim() !== "") {
-        // Realizar uma requisição para verificar se o ativo existe no banco de dados
-        fetch("verificar_ativo.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: "ativo=" + encodeURIComponent(ativo)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.exists) {
-                // Se o ativo existe no banco de dados, exibir a tela de venda
-                document.getElementById("telaCompra").style.display = "none"; // Esconder a tela de compra
-                document.getElementById("resultadoPesquisa").style.display = "none"; // Esconder a tela de pesquisa
-                document.getElementById("telaVenda").style.display = "block"; // Mostrar a tela de venda
-                document.getElementById("ativoVenda").value = ativo; // Preencher o campo de ativo na tela de venda
-
-                // Consultar o banco de dados para obter o valor do ativo
-                fetch("verificar_ativo.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: "ativo=" + encodeURIComponent(ativo)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.preco) {
-                        document.getElementById("valorAtivoVenda").textContent = data.preco; // Preencher o valor do ativo na tela de venda
-                    }
-                })
-                .catch(error => console.error("Erro na requisição: " + error));
-            } else {
-                alert("Ativo não encontrado no banco de dados.");
-            }
-        })
-        .catch(error => console.error("Erro na requisição: " + error));
-    } else {
-        alert("Preencha o campo 'Ativo' antes de vender.");
-    }
-});
-
+    // Código para reverter as ações da compra, se necessário
+    // Por exemplo, você pode redefinir os campos do formulário e ocultar a tela de compra
+    document.getElementById('ativoCompra').value = '';
+    document.getElementById('quantidadeCompra').value = '';
+    document.getElementById('valorOrdem').textContent = '';
+    document.getElementById('valorOrdemHidden').value = '';
+    document.getElementById('telaCompra').style.display = 'none';
+}
 
 // Função para cancelar venda quando clicar no botão cancelar
 function cancelarVenda() {
@@ -163,13 +119,13 @@ document.querySelector("[name='pesquisar']").addEventListener("click", function(
                     operacoesAgrupadas[tipo] = { quantidade: 0, valorTotal: 0, data: operacao.data };
                 }
                 operacoesAgrupadas[tipo].quantidade += parseInt(operacao.quantidade); // Converta para inteiro antes de somar
-                operacoesAgrupadas[tipo].valorTotal += operacao.valor;
+                operacoesAgrupadas[tipo].valorTotal += parseFloat(operacao.valor);
             });
 
             // Preenche a tabela com as operações agrupadas
             for (var tipo in operacoesAgrupadas) {
                 var quantidade = operacoesAgrupadas[tipo].quantidade;
-                var valorTotal = operacoesAgrupadas[tipo].valorTotal.toFixed(2);
+                var valorTotal = parseFloat(operacoesAgrupadas[tipo].valorTotal).toFixed(2); // Converter para número e aplicar .toFixed()
                 var dataOperacao = operacoesAgrupadas[tipo].data;
 
                 // Função para formatar a data no formato dd/mm/yyyy
@@ -190,6 +146,11 @@ document.querySelector("[name='pesquisar']").addEventListener("click", function(
                 cell2.innerHTML = dataFormatada;
             }
 
+            // Calcula o saldo e exibe na página
+            var saldo = calcularSaldo(operacoes);
+            var saldoElement = document.getElementById("saldo");
+            saldoElement.innerHTML = "Saldo: R$ " + saldo.toFixed(2);
+
             document.getElementById("resultadoPesquisa").style.display = "block";
             document.getElementById("telaVenda").style.display = "none";
             document.getElementById("telaCompra").style.display = "none";
@@ -201,8 +162,7 @@ document.querySelector("[name='pesquisar']").addEventListener("click", function(
     .catch(error => console.error("Erro na requisição: " + error));
 });
 
-
-
+// Função para limpar a pesquisa 
 function limparPesquisa() {
     document.getElementById("ativo").value = ""; // Limpa o input
     var tabelaOperacoes = document.getElementById("tabelaOperacoes");
@@ -221,3 +181,23 @@ function limparPesquisa() {
     document.getElementById("telaVenda").style.display = "none"; // Esconde a tela de venda
     document.getElementById("telaCompra").style.display = "none"; // Esconde a tela de compra
 }
+
+// Função para calcular o saldo com base nas operações
+function calcularSaldo(operacoes) {
+    var saldo = 0;
+
+    operacoes.forEach(function(operacao) {
+        var tipo = operacao.tipo === 1 ? "Compra" : "Venda";
+        var quantidade = parseInt(operacao.quantidade);
+        var valorTotal = parseFloat(operacao.valor);
+
+        if (tipo === "Compra") {
+            saldo += quantidade * valorTotal;
+        } else if (tipo === "Venda") {
+            saldo -= quantidade * valorTotal;
+        }
+    });
+
+    return saldo;
+}
+

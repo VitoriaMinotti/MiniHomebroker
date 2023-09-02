@@ -24,8 +24,11 @@
     <!-- tela de pesquisa, só aparece ao clicar no botão de pesquisar -->
     <div class="container" style="display: none;" id="resultadoPesquisa">
     <br>
-    <h4>Saldo</h4>
-        <table class="table mt-3" id="tabelaOperacoes" >
+    <div class="form-group">
+        <label for="saldo">Saldo:</label>
+        <input type="text" class="form-control" id="saldo" readonly>
+    </div>
+    <table class="table mt-3" id="tabelaOperacoes" >
         <thead>
             <tr>
                 <th>Operações</th>
@@ -56,25 +59,8 @@
                 <br>
                 <button type="submit" class="btn btn-success">Confirmar</button>
             </form>
-                <button class="btn btn-danger" onclick="cancelarCompra()">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="cancelarCompra()">Cancelar</button>
             </div>
-    </div>
-
-    <!-- tela de vender ativo, só aparece ao clicar no botão de vender -->
-    <div class="container mt-3" id="telaVenda" style="display: none;">
-        <h2 style="color:red;">Venda de Ativo</h2>
-        <form action="salvar_venda.php" method="post">
-            <input type="text" name="ativoVenda" id="ativoVenda" placeholder="Ativo" readonly>
-            <label for="valorAtivoVenda">Valor do Ativo:</label>
-            <span id="valorAtivoVenda"></span>
-            <input type="number" id="quantidadeVenda" name="quantidade" placeholder="Quantidade" oninput="calcularValorOrdem('venda')">
-            <label for="valorOrdemVenda">Valor da Ordem:</label>
-            <span id="valorOrdemVenda" name="valorOrdemVenda"></span>
-            <input type="hidden" id="valorOrdemHidden" name="valorOrdemVenda"/>
-            <input type="hidden" name="tipo" value="2"> <!-- 2 para Venda -->
-            <button type="submit" class="btn btn-success">Confirmar</button>
-            </form>
-            <button class="btn btn-danger" onclick="cancelarVenda()">Cancelar</button>
     </div>
 </div>
 
