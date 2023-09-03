@@ -4,7 +4,7 @@ include("conexao.php");
 // Obtém os dados do formulário
 $codigo_ativo = $_POST['ativoVenda']; 
 $tipo = $_POST['tipo'];
-$quantidade = $_POST['quantidade'];
+$quantidade = $_POST['quantidadeVenda'];
 $valor = $_POST['valorOrdemVenda']; 
 $data = date('Y-m-d'); // Data atual
 

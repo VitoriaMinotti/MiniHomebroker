@@ -114,6 +114,7 @@ function calcularValorOrdem(tipo) {
     }
 }
 
+
 // Função para cancelar compra quando clicar no botão cancelar
 function cancelarCompra() {
     // Código para reverter as ações da compra, se necessário
@@ -213,6 +214,7 @@ document.querySelector("[name='pesquisar']").addEventListener("click", function(
             var saldo = calcularSaldo(operacoes);
             var saldoElement = document.getElementById("saldo");
             saldoElement.innerHTML = "Saldo: R$ " + saldo.toFixed(2);
+                
 
             document.getElementById("resultadoPesquisa").style.display = "block";
             document.getElementById("telaVenda").style.display = "none";
