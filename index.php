@@ -70,16 +70,16 @@
             <input type="text" name="ativoVenda" id="ativoVenda" placeholder="Ativo" readonly>
             <label for="valorAtivoVenda">Valor do Ativo:</label>
             <span id="valorAtivoVenda"></span>
-            <input type="number" id="quantidadeVenda" name="quantidade" placeholder="Quantidade" oninput="calcularValorOrdem('venda')">
+            <input type="number" id="quantidadeVenda" name="quantidadeVenda" placeholder="Quantidade" oninput="calcularValorOrdem('venda')">
             <label for="valorOrdemVenda">Valor da Ordem:</label>
-            <span id="valorOrdemVenda" name="valorOrdemVenda"></span>
-            <input type="hidden" id="valorOrdemHidden" name="valorOrdemVenda"/>
+            <span id="valorOrdemVenda" name="valorVenda"></span>
+            <input type="hidden" id="valorOrdemVenda" name="valorVenda"/>
             <input type="hidden" name="tipo" value="2"> <!-- 2 para Venda -->
             <div class="container">
                 <br>
                 <button type="submit" class="btn btn-success">Confirmar</button>
             </form>
-                <button type="button" class="btn btn-danger" onclick="cancelarCompra()">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="cancelarVenda()">Cancelar</button>
             </div>
     </div>
 

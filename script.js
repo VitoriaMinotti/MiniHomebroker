@@ -14,7 +14,7 @@ if (ativo.trim() !== "") { //usa o trim para verificar os espaços em branco
     .then(data => { //verifica se o ativo existe no banco de dados
         if (data.exists) { 
             // Se Ativo existe no banco de dados, exibir tela de compra
-            // document.getElementById("telaVenda").style.display = "none"; // Esconder tela de venda
+            document.getElementById("telaVenda").style.display = "none"; // Esconder tela de venda
             document.getElementById("resultadoPesquisa").style.display = "none"; // Esconde a tela de pesquisa
             document.getElementById("telaCompra").style.display = "block"; // Mostrar tela de compra
             document.getElementById("ativoCompra").value = ativo; // Preencher campo de ativo na tela de compra
@@ -114,6 +114,16 @@ function calcularValorOrdem(tipo) {
     }
 }
 
+// Função para cancelar compra quando clicar no botão cancelar
+function cancelarVenda() {
+    // Código para reverter as ações da compra, se necessário
+    // Por exemplo, você pode redefinir os campos do formulário e ocultar a tela de compra
+    document.getElementById('ativoVenda').value = '';
+    document.getElementById('quantidadeVenda').value = '';
+    document.getElementById('valorOrdemVenda').textContent = '';
+    document.getElementById('valorOrdemHidden').value = '';
+    document.getElementById('telaVenda').style.display = 'none';
+}
 
 // Função para cancelar compra quando clicar no botão cancelar
 function cancelarCompra() {
