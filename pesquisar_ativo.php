@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $operacoes[] = array("tipo" => $tipo, "quantidade" => $quantidade, "valor" => $valor, "data" => $data);
         }
 
+        
         // Retornar as operações como JSON
         echo json_encode(array("exists" => true, "operacoes" => $operacoes));
     } else {

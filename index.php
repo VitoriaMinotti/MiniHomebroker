@@ -24,9 +24,8 @@
     <!-- tela de pesquisa, só aparece ao clicar no botão de pesquisar -->
     <div class="container" style="display: none;" id="resultadoPesquisa">
     <br>
-    <div id="saldo">
+    <div id="saldo" style="display: none;">
         <h4>Saldo</h4>
-        <span id="saldoValor"></span>
     </div>
         <table class="table mt-3" id="tabelaOperacoes" >
         <thead>

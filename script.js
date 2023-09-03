@@ -116,8 +116,6 @@ function calcularValorOrdem(tipo) {
 
 // Função para cancelar compra quando clicar no botão cancelar
 function cancelarVenda() {
-    // Código para reverter as ações da compra, se necessário
-    // Por exemplo, você pode redefinir os campos do formulário e ocultar a tela de compra
     document.getElementById('ativoVenda').value = '';
     document.getElementById('quantidadeVenda').value = '';
     document.getElementById('valorOrdemVenda').textContent = '';
@@ -127,8 +125,6 @@ function cancelarVenda() {
 
 // Função para cancelar compra quando clicar no botão cancelar
 function cancelarCompra() {
-    // Código para reverter as ações da compra, se necessário
-    // Por exemplo, você pode redefinir os campos do formulário e ocultar a tela de compra
     document.getElementById('ativoCompra').value = '';
     document.getElementById('quantidadeCompra').value = '';
     document.getElementById('valorOrdem').textContent = '';
@@ -216,7 +212,13 @@ document.querySelector("[name='pesquisar']").addEventListener("click", function(
                 var newRow = tabelaOperacoes.getElementsByTagName('tbody')[0].insertRow();
                 var cell1 = newRow.insertCell(0);
                 var cell2 = newRow.insertCell(1);
-                cell1.innerHTML = tipo + " " + quantidade + " unidades: R$ " + valorTotal;
+
+                if (tipo === 'Compra') {
+                    cell1.innerHTML = tipo + " " + quantidade + " unidades de " + ativo + " R$" + valorTotal;
+                } else {
+                    cell1.innerHTML = tipo + " " + quantidade + " unidades de " + ativo + " R$" + valorTotal;
+                }
+
                 cell2.innerHTML = dataFormatada;
             }
 
@@ -236,7 +238,6 @@ document.querySelector("[name='pesquisar']").addEventListener("click", function(
     })
     .catch(error => console.error("Erro na requisição: " + error));
 });
-
 
 // Função para limpar a pesquisa 
 function limparPesquisa() {
