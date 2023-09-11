@@ -183,11 +183,26 @@ document.querySelector("[name='pesquisar']").addEventListener("click", function(
             var operacoesAgrupadas = {}; // Objeto para agrupar operações pelo tipo
 
             // Agrupa as operações pelo tipo (Compra ou Venda)
+            var operacoesAgrupadas = {
+                "Compra": { quantidade: 0, valorTotal: 0, data: null },
+                "Venda": { quantidade: 0, valorTotal: 0, data: null }
+            };
+
+            // Agrupa as operações pelo tipo (Compra ou Venda)
+            var operacoesAgrupadas = {
+                "Compra": { quantidade: 0, valorTotal: 0, data: null },
+                "Venda": { quantidade: 0, valorTotal: 0, data: null }
+            };
+
+            // Agrupa as operações pelo tipo (Compra ou Venda)
             operacoes.forEach(function(operacao) {
                 var tipo = operacao.tipo === 1 ? "Venda" : "Compra"; 
-                if (!operacoesAgrupadas[tipo]) {
-                    operacoesAgrupadas[tipo] = { quantidade: 0, valorTotal: 0, data: operacao.data };
+
+                // Atualiza a data se for a primeira operação desse tipo encontrada
+                if (!operacoesAgrupadas[tipo].data) {
+                    operacoesAgrupadas[tipo].data = operacao.data;
                 }
+
                 operacoesAgrupadas[tipo].quantidade += parseInt(operacao.quantidade); // Converta para inteiro antes de somar
                 operacoesAgrupadas[tipo].valorTotal += parseFloat(operacao.valor);
             });
