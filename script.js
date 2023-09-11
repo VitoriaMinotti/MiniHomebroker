@@ -184,7 +184,7 @@ document.querySelector("[name='pesquisar']").addEventListener("click", function(
 
             // Agrupa as operações pelo tipo (Compra ou Venda)
             operacoes.forEach(function(operacao) {
-                var tipo = operacao.tipo === 1 ? "Venda" : "Compra";
+                var tipo = operacao.tipo === 1 ? "Venda" : "Compra"; 
                 if (!operacoesAgrupadas[tipo]) {
                     operacoesAgrupadas[tipo] = { quantidade: 0, valorTotal: 0, data: operacao.data };
                 }
@@ -194,40 +194,33 @@ document.querySelector("[name='pesquisar']").addEventListener("click", function(
 
             // Preenche a tabela com as operações agrupadas
             for (var tipo in operacoesAgrupadas) {
-                var quantidade = operacoesAgrupadas[tipo].quantidade;
-                var valorTotal = parseFloat(operacoesAgrupadas[tipo].valorTotal).toFixed(2); // Converter para número e aplicar .toFixed()
-                var dataOperacao = operacoesAgrupadas[tipo].data;
+                var quantidade = operacoesAgrupadas[tipo].quantidade; 
+                var valorTotal = parseFloat(operacoesAgrupadas[tipo].valorTotal).toFixed(2); // Converter para número e aplicar .toFixed() para limitar a 2 casas decimais 
+                var dataOperacao = operacoesAgrupadas[tipo].data; 
 
                 // Função para formatar a data no formato dd/mm/yyyy
                 function formatarDataParaBrasileiro(data) {
                     const dataObj = new Date(data);
-                    const dia = dataObj.getDate().toString().padStart(2, '0');
-                    const mes = (dataObj.getMonth() + 1).toString().padStart(2, '0');
-                    const ano = dataObj.getFullYear();
+                    const dia = dataObj.getDate().toString().padStart(2, '0'); 
+                    const mes = (dataObj.getMonth() + 1).toString().padStart(2, '0'); 
+                    const ano = dataObj.getFullYear(); 
                     return dia + '/' + mes + '/' + ano;
                 }
 
                 var dataFormatada = formatarDataParaBrasileiro(dataOperacao);
 
-                var newRow = tabelaOperacoes.getElementsByTagName('tbody')[0].insertRow();
-                var cell1 = newRow.insertCell(0);
+                var newRow = tabelaOperacoes.getElementsByTagName('tbody')[0].insertRow(); 
+                var cell1 = newRow.insertCell(0); 
                 var cell2 = newRow.insertCell(1);
 
                 if (tipo === 'Compra') {
                     cell1.innerHTML = tipo + " " + quantidade + " unidades de " + ativo + " R$" + valorTotal;
                 } else {
-                    cell1.innerHTML = tipo + " " + quantidade + " unidades de " + ativo + " R$" + valorTotal;
+                    cell1.innerHTML = tipo + " " + quantidade + " unidades de " + ativo + " R$" + valorTotal; 
                 }
 
                 cell2.innerHTML = dataFormatada;
             }
-
-            // Calcula o saldo e exibe na página
-            var saldo = calcularSaldo(operacoes);
-            var saldoElement = document.getElementById("saldo");
-            saldoElement.innerHTML = "Saldo: R$ " + saldo.toFixed(2);
-                
-
             document.getElementById("resultadoPesquisa").style.display = "block";
             document.getElementById("telaVenda").style.display = "none";
             document.getElementById("telaCompra").style.display = "none";

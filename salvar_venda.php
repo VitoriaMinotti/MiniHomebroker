@@ -8,7 +8,6 @@ $quantidade = $_POST['quantidadeVenda'];
 $valor = $_POST['valorOrdemVenda']; 
 $data = date('Y-m-d'); // Data atual
 
-// Prepara e executa a consulta SQL
 $query = "INSERT INTO ordem (codigo_ativo, tipo, quantidade, valor, data) 
                      VALUES ('$codigo_ativo', '$tipo', '$quantidade', '$valor', '$data')";
 $result = $conexao->query($query);
